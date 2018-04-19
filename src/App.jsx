@@ -29,7 +29,7 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {messages: [], currentUser: 'Anonymous'}
+    this.state = {messages: [], currentUser: 'Anonymous', numUsers: 0};
 
     this.addNewMessage = this.addNewMessage.bind(this);
     this.changeUsername = this.changeUsername.bind(this);
@@ -58,8 +58,19 @@ class App extends Component {
     this.socket.addEventListener('message', event => {
         let messageObj = JSON.parse(event.data);
         //console.log(messageObj);
-        const messages = this.state.messages.concat(messageObj);
-        this.setState({messages: messages});
+
+        if (messageObj.type === 'postNumUser') {
+
+
+            this.setState({numUsers: messageObj.content});
+            console.log("numUsers: ", this.state.numUsers);
+
+        }
+
+        else {
+          const messages = this.state.messages.concat(messageObj);
+          this.setState({messages: messages});
+        }
 
   // code to handle incoming message
     });
