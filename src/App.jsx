@@ -21,6 +21,7 @@ class NavBar extends React.Component {
     console.log("rendering navbar");
     return (<nav className="navbar">
             <a href="/" className="navbar-brand">Chatty</a>
+            <div className="navbarNumUsers"> {this.props.numUsers} users online </div>
               </nav>);
   }
 }
@@ -102,7 +103,7 @@ class App extends Component {
    // console.log("state messages: ", this.state.messages);
     //console.log("curent user: "+ this.state.currentUser);
     return (<div>
-        <NavBar/>
+        <NavBar numUsers={this.state.numUsers}/>
         <main className="messages">
           <MessageList messages={this.state.messages} />
         </main>
