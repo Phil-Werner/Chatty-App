@@ -29,52 +29,10 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {messages: [
-            {
-                id: "aaa1",
-                type: "incomingMessage",
-                content: "I won't be impressed with technology until I can download food.",
-                username: "Anonymous1"
-            },
-            {
-                id: "aaa2",
-                type: "incomingNotification",
-                content: "Anonymous1 changed their name to nomnom",
-            },
-            {
-                id: "aaa3",
-                type: "incomingMessage",
-                content: "I wouldn't want to download Kraft Dinner. I'd be scared of cheese packet loss.",
-                username: "Anonymous2"
-            },
-            {
-                id: "aaa4",
-                type: "incomingMessage",
-                content: "...",
-                username: "nomnom"
-            },
-            {
-                id: "aaa5",
-                type: "incomingMessage",
-                content: "I'd love to download a fried egg, but I'm afraid encryption would scramble it",
-                username: "Anonymous2"
-            },
-            {
-                id: "aaa6",
-                type: "incomingMessage",
-                content: "This isn't funny. You're not funny",
-                username: "nomnom"
-            },
-            {
-                id: "aaa7",
-                type: "incomingNotification",
-                content: "Anonymous2 changed their name to NotFunny",
-
-            }
-
-        ], currentUser: 'Anonymous'}
+    this.state = {messages: [], currentUser: 'Anonymous'}
 
     this.addNewMessage = this.addNewMessage.bind(this);
+    this.changeUsername = this.changeUsername.bind(this);
 
   }
 
@@ -92,13 +50,39 @@ class App extends Component {
        // this.addNewMessage("test test");
 
   //  }, 3000);
+
+
+    this.socket = new WebSocket('ws://localhost:3001');
+    console.log("Connected to server");
+
+    this.socket.addEventListener('message', event => {
+        let messageObj = JSON.parse(event.data);
+        //console.log(messageObj);
+        const messages = this.state.messages.concat(messageObj);
+        this.setState({messages: messages});
+
+  // code to handle incoming message
+    });
   }
 
   addNewMessage(messageContent) {
-    const newMessage = {id: newId(), username: this.state.currentUser, content: messageContent};
-    const messages = this.state.messages.concat(newMessage);
-    this.setState({messages: messages});
+   // const newMessage = {id: newId(), username: this.state.currentUser, content: messageContent};
 
+
+   let messageObj = {username: this.state.currentUser, content: messageContent, type: 'postMessage'};
+   this.socket.send(JSON.stringify(messageObj));
+
+  }
+
+  changeUsername(name) {
+
+    console.log("name: ", name)
+    let messageObj = {username: name, content: `${this.state.currentUser} changed their name to ${name}`, type: 'postNotification'};
+
+    this.socket.send(JSON.stringify(messageObj));
+    this.setState({currentUser: name});
+
+    //console.log("new name ", this.state.username);
   }
 
 
@@ -111,7 +95,7 @@ class App extends Component {
         <main className="messages">
           <MessageList messages={this.state.messages} />
         </main>
-        <ChatBar currentUser={this.state.currentUser} addNewMessage={this.addNewMessage} />
+        <ChatBar currentUser={this.state.currentUser} addNewMessage={this.addNewMessage} changeUsername={this.changeUsername} />
       </div>
     );
   }

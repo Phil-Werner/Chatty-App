@@ -5,17 +5,25 @@ class Message extends React.Component {
 
   render() {
 
-    return (
+    if (this.props.mess.type === "incomingMessage") {
+      return (
 
         <div className="message">
           <span className="message-username">{this.props.mess.username}</span>
           <span className="message-content">{this.props.mess.content}</span>
         </div>
-      /*  <div className="message system">
-          Anonymous1 changed their name to nomnom.
-        </div> */
+      )
+    }
 
-    )
+    if (this.props.mess.type === "incomingNotification") {
+      return (
+
+        <div className="message system">
+           <span class="notification-content">{this.props.mess.content}</span>
+        </div>
+      )
+    }
+
   }
 }
 
