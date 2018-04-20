@@ -21,7 +21,7 @@ class Message extends React.Component {
       return (
 
         <div className="message system">
-           <span class="notification-content">{this.props.mess.content}</span>
+          <span class="notification-content">{this.props.mess.content}</span>
         </div>
       )
     }

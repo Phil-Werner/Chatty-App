@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
 import Message from './Message.jsx';
 
+//Creates a message for every message in the list
 class MessageList extends React.Component {
 
   render() {
-   // console.log("this prop messages", this.props.messages);
     const messages = this.props.messages.map((messageComp) => {
-      //console.log("messagecomp: ", messageComp)
       return (<Message key={messageComp.id} mess={messageComp}/>);
     });
 
