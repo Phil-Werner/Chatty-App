@@ -47,3 +47,7 @@ node server.js
 * express
 * websocket
 * uuid
+
+### Screenshots
+
+!["Screenshot of chatty messages"](https://github.com/Phil-Werner/Chatty-App/blob/master/docs/Chatty-App%20.png?raw=true)
