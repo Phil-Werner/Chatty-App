@@ -33,8 +33,8 @@ node server.js
 * React
 * React-dom
 * Webpack
-* [webpack-dev-server](https://github.com/webpack/webpack-dev-server)
-* [babel-loader](https://github.com/babel/babel-loader)
+* webpack-dev-server
+* babel-loader
 * babel-core
 * babel-preset-es2015
 * babel-preset-react
