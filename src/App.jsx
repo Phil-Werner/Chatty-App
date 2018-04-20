@@ -30,7 +30,7 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-    this.state = {messages: [], currentUser: 'Anonymous', numUsers: 0};
+    this.state = {messages: [], currentUser: 'Anonymous', numUsers: 0, colour: ''};
 
     this.addNewMessage = this.addNewMessage.bind(this);
     this.changeUsername = this.changeUsername.bind(this);
@@ -58,9 +58,16 @@ class App extends Component {
 
     this.socket.addEventListener('message', event => {
         let messageObj = JSON.parse(event.data);
+
         //console.log(messageObj);
 
-        if (messageObj.type === 'postNumUser') {
+        if (messageObj.type === 'newUserColour') {
+
+          this.setState({colour: messageObj.colour})
+          //userColours.push(messageObj.colour);
+        }
+
+        else if (messageObj.type === 'postNumUser') {
 
 
             this.setState({numUsers: messageObj.content});
@@ -81,7 +88,7 @@ class App extends Component {
    // const newMessage = {id: newId(), username: this.state.currentUser, content: messageContent};
 
 
-   let messageObj = {username: this.state.currentUser, content: messageContent, type: 'postMessage'};
+   let messageObj = {username: this.state.currentUser, content: messageContent, type: 'postMessage', colour: this.state.colour};
    this.socket.send(JSON.stringify(messageObj));
 
   }

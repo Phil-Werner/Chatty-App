@@ -65,6 +65,23 @@ body {
   font-weight: 700;
 }
 
+.message-username, #red {
+  color: red;
+}
+
+.message-username, #purple {
+  color: purple;
+}
+
+.message-username, #blue {
+  color: blue;
+}
+
+.message-username, #green {
+  color: green;
+}
+
+
 .navbar {
   background: tomato;
   border-bottom: 1px solid black;
@@ -93,3 +110,4 @@ body {
   float: right;
   line-height: 60px;
 }
+

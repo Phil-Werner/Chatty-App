@@ -5,11 +5,13 @@ class Message extends React.Component {
 
   render() {
 
+    console.log("Colour: ", this.props.mess.colour);
+
     if (this.props.mess.type === "incomingMessage") {
       return (
 
         <div className="message">
-          <span className="message-username">{this.props.mess.username}</span>
+          <span id={this.props.mess.colour} className="message-username">{this.props.mess.username}</span>
           <span className="message-content">{this.props.mess.content}</span>
         </div>
       )
